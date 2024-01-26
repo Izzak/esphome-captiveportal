@@ -35,7 +35,8 @@ void CaptivePortal::handle_wifisave(AsyncWebServerRequest *request) {
   ESP_LOGI(TAG, "  Password=" LOG_SECRET("'%s'"), psk.c_str());
   wifi::global_wifi_component->save_wifi_sta(ssid, psk);
   wifi::global_wifi_component->start_scanning();
-  request->redirect("/?save&mac=" get_mac_address_pretty().c_str());
+  std::string mac_adresa = get_mac_address_pretty().c_str();
+  request->redirect("/?save&mac="+mac_adresa);
 }
 
 void CaptivePortal::setup() {}
