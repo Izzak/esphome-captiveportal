@@ -11,7 +11,10 @@ namespace mqtt_subscribe {
 static const char *const TAG = "mqtt_subscribe.text_sensor";
 
 void MQTTSubscribeTextSensor::setup() {
-  this->topic_ = get_mac_address_pretty()+this->topic_;
+  std::string mac = get_mac_address_pretty().c_str();
+  mac.erase(std::remove(mac.begin(), mac.end(), ':'), mac.end());
+  this->topic_ = "deyecko/obk-smart-"+mac.substr(mac.size()-6)+"-"+mac+"/"+this->topic_.c_str();
+  //this->topic_ = get_mac_address_pretty()+this->topic_;
   this->parent_->subscribe(
       this->topic_, [this](const std::string &topic, const std::string &payload) { this->publish_state(payload); },
       this->qos_);
