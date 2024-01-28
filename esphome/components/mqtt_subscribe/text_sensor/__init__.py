@@ -32,5 +32,5 @@ async def to_code(config):
 
     parent = await cg.get_variable(config[CONF_MQTT_PARENT_ID])
     cg.add(var.set_parent(parent))
-    cg.add(var.set_topic(get_mac_address_pretty().c_str()+config[CONF_TOPIC]))
+    cg.add(var.set_topic(config[CONF_TOPIC]))
     cg.add(var.set_qos(config[CONF_QOS]))
